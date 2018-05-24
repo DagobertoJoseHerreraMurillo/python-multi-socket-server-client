@@ -9,13 +9,13 @@ def code():
 
     # Connect the socket to the port where the server is listening
     server_address = ('localhost', 9999)
+
     print('connecting to {} port {}'.format(*server_address))
     sock.connect(server_address)
 
     try:
-
         # Send data
-        message = b'sergiers'
+        message = b'ThisIsAnUsername'
         print('sending {!r}'.format(message))
         sock.sendall(message)
 
@@ -24,7 +24,7 @@ def code():
         amount_expected = len(message)
 
         while amount_received < amount_expected:
-            data = sock.recv(100)
+            data = sock.recv(1024)
             amount_received += len(data)
             msg = '{!r}'.format(data)
             print("receive: "+msg[1:])
