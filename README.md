@@ -1,5 +1,8 @@
 # python-multi-socket-server-client
 
+Hello world!
+
+# How to deploy lambda
 First we need to create a user. We log in and go to IAM. Create a user
 and set the "Programatic access". Then we create a group and attatch
 the policy "AWSLambdaFullAccess".
