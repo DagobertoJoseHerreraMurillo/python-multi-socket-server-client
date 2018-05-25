@@ -14,28 +14,36 @@ class MyTCPHandler(socketserver.BaseRequestHandler):
     def handle(self):
         # Create boto3 connection
         s3 = boto3.client('s3')
-        filename = 'file.txt'
         bucket_name = 'multiserverbucketrololo'
 
         # self.request is the TCP socket connected to the client
         self.data = self.request.recv(1024).strip()
-        print("{} wrote:".format(self.client_address[0]) + " " + str(self.data))
+        username = str(self.data)
+        username = username[2:]
+        username = username[:-1]
+        print("{} wrote:".format(self.client_address[0]) + " " + username)
 
         # Once we got the username (data is in Bytes) we now do things here
-        # TODO do things and get local JSON
+        os.system("instagram-scraper " + username + " -u usernam -p paswd -t image --media-metadata -d "+ os.getcwd())
 
         # Uploads the given file using a managed uploader, which will split up large
         # files automatically and upload parts in parallel.
-        s3.upload_file(filename, bucket_name, filename)
+        filename = os.getcwd()+"/"+username+".json"
+
+        jsonfile = username+".json"
+        s3.upload_file(jsonfile, bucket_name, jsonfile, ExtraArgs={'ACL':'public-read'})
+
+        url = "https://s3-eu-west-1.amazonaws.com/multiserverbucketrololo/"+username+".json"
         # TODO generate URL (normally = bucketURL + filename)
         # TODO example: https://s3-eu-west-1.amazonaws.com/multiserverbucketrololo/file.txt
 
         # for deleting files:
         # TODO remove local Json with this:
-        # os.remove("/tmp/<file_name>.txt")
+        os.remove(filename)
+
 
         # Reeturn whadever
-        data = b"http://www.This-Is-A-URL-lol.com/124141241412421412421/sjnsjfbsfah/helloworld"
+        data = bytearray(url, 'utf8')
         print("returning: " + str(data))
         self.request.sendall(data)
 
