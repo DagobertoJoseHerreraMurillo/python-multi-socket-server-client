@@ -1,6 +1,7 @@
 # python-multi-socket-server-client
 
-Hello world!
+Server receives a user, executes scraper, send json to S3 bucket, returns URL to client
+
 
 # How to deploy lambda
 First we need to create a user. We log in and go to IAM. Create a user
