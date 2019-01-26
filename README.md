@@ -1,6 +1,8 @@
 # python-multi-socket-server-client
 
-Server receives a user, executes scraper, send json to S3 bucket, returns URL to client
+This repo contains a Multi Socket-Client Server for the Cloud Computing subject in UPC, Barcelona.
+
+Server receives a user, executes scraper, send json to S3 bucket and returns URL to client
 
 
 # How to deploy lambda
